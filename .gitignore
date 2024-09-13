@@ -1,1 +1,11 @@
 /instructions.md
+/vendor/
+/.env
+/Dockerfile
+/docker-compose.yml
+/.env.example
+/app/.styleci.yml
+/app/.gitattributes
+/app/.editorconfig
+/.idea/
+/docker-compose/
