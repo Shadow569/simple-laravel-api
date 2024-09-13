@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateCommentsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Migrations for comments table.
      *
      * @return void
      */
@@ -15,7 +15,11 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
+            $table->text('comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 

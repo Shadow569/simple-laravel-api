@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreatePostsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Migrations for posts table
      *
      * @return void
      */
@@ -17,9 +17,11 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->string('slug');
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('slug')->unique();
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 
