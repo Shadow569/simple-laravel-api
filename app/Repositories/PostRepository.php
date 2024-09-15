@@ -42,7 +42,7 @@ class PostRepository implements Interfaces\PostRepositoryInterface
 
         $postsQuery->orderBy($orderField, $orderDir);
 
-        $postsQuery->with('categories')->with('tags');
+        $postsQuery->with('categories')->with('tags')->with('comments');
 
         return $postsQuery->get();
     }

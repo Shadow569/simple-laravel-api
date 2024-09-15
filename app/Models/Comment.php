@@ -19,4 +19,12 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

@@ -8,12 +8,23 @@ class Category extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'parent_id',
+        'slug',
+        'title'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     /**

@@ -41,6 +41,11 @@ class Post extends \Illuminate\Database\Eloquent\Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     /**
      * @param string $slug
      * @return \App\Models\Post

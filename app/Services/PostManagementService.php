@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class PostManagementService
 {
@@ -36,6 +37,7 @@ class PostManagementService
             $post->fill($postData);
         } else {
             $post = Post::newModelInstance($postData);
+            $post->user_id = Auth::id();
         }
 
         $post = $this->postRepository->save($post);
