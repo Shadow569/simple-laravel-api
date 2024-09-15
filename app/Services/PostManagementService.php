@@ -3,52 +3,43 @@
 namespace App\Services;
 
 use App\Models\Post;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 
 class PostManagementService
 {
-
     /**
-     * @var \App\Services\ObjectAuthorizationService
+     * @var \App\Repositories\Interfaces\PostRepositoryInterface
      */
-    protected $objectAuthorizationService;
+    protected PostRepositoryInterface $postRepository;
 
     /**
-     * @param \App\Services\ObjectAuthorizationService $objectAuthorizationService
+     * @param \App\Repositories\Interfaces\PostRepositoryInterface $postRepository
      */
     public function __construct(
-        ObjectAuthorizationService $objectAuthorizationService
+        PostRepositoryInterface $postRepository
     )
     {
-        $this->objectAuthorizationService = $objectAuthorizationService;
+        $this->postRepository = $postRepository;
     }
 
     /**
-     * @param \App\Models\Post $post
+     * @param array $postData
      * @param array $tags
      * @param array $categories
      * @return \App\Models\Post
      */
-    public function createPost(Post $post, array $tags = [], array $categories = []): Post
+    public function createOrUpdatePost(array $postData, array $tags = [], array $categories = []): Post
     {
-        $post->save();
-        $post->tags()->sync($tags);
-        $post->categories()->sync($categories);
+        if(array_key_exists('id', $postData)){
+            $post = $this->postRepository->get($postData['id']);
+            unset($postData['id']);
+            $post->fill($postData);
+        } else {
+            $post = Post::newModelInstance($postData);
+        }
 
-        return $post;
-    }
-
-    /**
-     * @param \App\Models\Post $post
-     * @param array $tags
-     * @param array $categories
-     * @return \App\Models\Post
-     */
-    public function editPost(Post $post, array $tags = [], array $categories = []): Post
-    {
-        $post->save();
-        $post->tags()->sync($tags);
-        $post->categories()->sync($categories);
-
-        return $post;
+        $post = $this->postRepository->save($post);
+        $post = $this->postRepository->attachCategories($post, $categories);
+        return $this->postRepository->attachTags($post, $tags);
     }
 }
