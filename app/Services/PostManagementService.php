@@ -26,39 +26,29 @@ class PostManagementService
      * @param \App\Models\Post $post
      * @param array $tags
      * @param array $categories
-     * @return \App\Models\Post|null
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \App\Models\Post
      */
-    public function createPost(Post $post, array $tags = [], array $categories = []): ?Post
+    public function createPost(Post $post, array $tags = [], array $categories = []): Post
     {
-        if($this->objectAuthorizationService->canCreate()){
-            $post->save();
-            $post->tags()->saveMany($tags);
-            $post->categories()->saveMany($categories);
+        $post->save();
+        $post->tags()->sync($tags);
+        $post->categories()->sync($categories);
 
-            return $post;
-        }
-
-        return null;
+        return $post;
     }
 
     /**
      * @param \App\Models\Post $post
      * @param array $tags
      * @param array $categories
-     * @return \App\Models\Post|null
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \App\Models\Post
      */
-    public function editPost(Post $post, array $tags = [], array $categories = []): ?Post
+    public function editPost(Post $post, array $tags = [], array $categories = []): Post
     {
-        if($this->objectAuthorizationService->canEdit($post)){
-            $post->save();
-            $post->tags()->saveMany($tags);
-            $post->categories()->saveMany($categories);
+        $post->save();
+        $post->tags()->sync($tags);
+        $post->categories()->sync($categories);
 
-            return $post;
-        }
-
-        return null;
+        return $post;
     }
 }
