@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class PostResource extends \Illuminate\Http\Resources\Json\JsonResource
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(Request $request)
     {
         /** @var \App\Models\User|null $postAuthor */

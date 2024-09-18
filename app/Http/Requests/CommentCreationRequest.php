@@ -6,6 +6,9 @@ use Illuminate\Validation\Rule;
 
 class CommentCreationRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -13,6 +16,9 @@ class CommentCreationRequest extends \Illuminate\Foundation\Http\FormRequest
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

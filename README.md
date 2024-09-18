@@ -5,6 +5,13 @@ and commenting on individual posts.
 
 This is implemented using Laravel.
 
+### Installation
+
+The process for installing the application are the same steps as installing
+any laravel application, composer install, setting up the .env file with
+the required credentials to connect with your mysql database, migrating
+and seeding the database to build the necessary structures.
+
 ### Endpoints
 `/api/users/tokens`(`POST`) is used to login and receive an access token to be used
 for posting and commenting on the blog posts. It takes the following parameters:

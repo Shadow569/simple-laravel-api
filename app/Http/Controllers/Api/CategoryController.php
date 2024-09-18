@@ -23,6 +23,10 @@ class CategoryController extends \App\Http\Controllers\Controller
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $filters = $request->input('filters', []);

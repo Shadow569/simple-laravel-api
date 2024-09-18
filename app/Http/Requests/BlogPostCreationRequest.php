@@ -6,6 +6,9 @@ use Illuminate\Validation\Rule;
 
 class BlogPostCreationRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -19,6 +22,9 @@ class BlogPostCreationRequest extends \Illuminate\Foundation\Http\FormRequest
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

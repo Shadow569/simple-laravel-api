@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 class CommentUpdateRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -11,6 +14,9 @@ class CommentUpdateRequest extends \Illuminate\Foundation\Http\FormRequest
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

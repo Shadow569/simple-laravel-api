@@ -53,6 +53,10 @@ class PostController extends \App\Http\Controllers\Controller
         $this->tagRepository = $tagRepository;
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $filters = $request->input('filters', []);
@@ -61,6 +65,10 @@ class PostController extends \App\Http\Controllers\Controller
         return PostResource::collection($this->postRepository->getList($filters, $order));
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function userPosts(Request $request)
     {
         $filters = [
@@ -70,11 +78,19 @@ class PostController extends \App\Http\Controllers\Controller
         return PostResource::collection($this->postRepository->getList($filters));
     }
 
+    /**
+     * @param \App\Models\Post $post
+     * @return \App\Http\Resources\PostResource
+     */
     public function show(Post $post)
     {
         return PostResource::make($post->load(['user', 'categories', 'tags', 'comments', 'comments.user']));
     }
 
+    /**
+     * @param string $slug
+     * @return \App\Http\Resources\PostResource
+     */
     public function getBySlug(string $slug)
     {
         try{
@@ -91,6 +107,10 @@ class PostController extends \App\Http\Controllers\Controller
         return PostResource::make($post->load(['user', 'categories', 'tags', 'comments', 'comments.user']));
     }
 
+    /**
+     * @param \App\Http\Requests\BlogPostCreationRequest $request
+     * @return \App\Http\Resources\PostResource
+     */
     public function store(BlogPostCreationRequest $request)
     {
         try{
@@ -124,6 +144,11 @@ class PostController extends \App\Http\Controllers\Controller
         }
     }
 
+    /**
+     * @param \App\Models\Post $post
+     * @param \App\Http\Requests\BlogPostUpdateRequest $request
+     * @return \App\Http\Resources\PostResource
+     */
     public function update(Post $post, BlogPostUpdateRequest $request)
     {
         try{
@@ -157,6 +182,10 @@ class PostController extends \App\Http\Controllers\Controller
         }
     }
 
+    /**
+     * @param \App\Models\Post $post
+     * @return mixed
+     */
     public function destroy(Post $post)
     {
         try{

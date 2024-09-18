@@ -42,6 +42,12 @@ class CommentController extends \App\Http\Controllers\Controller
         $this->commentManagementService = $commentManagementService;
         $this->commentRepository = $commentRepository;
     }
+
+    /**
+     * @param \App\Models\Post $post
+     * @param \App\Http\Requests\CommentCreationRequest $request
+     * @return \App\Http\Resources\CommentResource
+     */
     public function store(Post $post, CommentCreationRequest $request)
     {
         try{
@@ -61,6 +67,11 @@ class CommentController extends \App\Http\Controllers\Controller
         }
     }
 
+    /**
+     * @param \App\Models\Comment $comment
+     * @param \App\Http\Requests\CommentUpdateRequest $request
+     * @return \App\Http\Resources\CommentResource
+     */
     public function update(Comment $comment, CommentUpdateRequest $request)
     {
         try{
@@ -86,6 +97,10 @@ class CommentController extends \App\Http\Controllers\Controller
         }
     }
 
+    /**
+     * @param \App\Models\Comment $comment
+     * @return mixed
+     */
     public function destroy(Comment $comment)
     {
         try{

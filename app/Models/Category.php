@@ -8,6 +8,9 @@ class Category extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'parent_id',
         'slug',

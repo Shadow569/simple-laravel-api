@@ -2,17 +2,26 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class RegistrationFormRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name'=>'required|string',
-            'email'=>'required|string|email|unique:users',
-            'password'=>'required|min:8'
+            'name'=> ['required', 'string'],
+            'email'=> ['required','string','email',Rule::unique('users', 'email')],
+            'password'=>['required','min:8']
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

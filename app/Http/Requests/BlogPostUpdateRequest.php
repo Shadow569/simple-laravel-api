@@ -7,6 +7,10 @@ use Illuminate\Validation\Rule;
 
 class BlogPostUpdateRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     public function rules(Request $request): array
     {
         return [
@@ -20,6 +24,9 @@ class BlogPostUpdateRequest extends \Illuminate\Foundation\Http\FormRequest
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

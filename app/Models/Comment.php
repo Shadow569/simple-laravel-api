@@ -8,6 +8,9 @@ class Comment extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'comment'
     ];
