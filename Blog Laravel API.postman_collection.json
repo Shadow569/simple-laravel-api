@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "79383c9f-88b0-4de4-89e4-2ca488190742",
+		"name": "Blog Laravel API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32733887"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"Test123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/users/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"Test123!\",\r\n    \"device_name\": \"Home Desktop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/users/token",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"users",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "CreatePost",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test\",\r\n    \"slug\": \"test-30\",\r\n    \"content\": \"<h6>Test Test Test</h6>\",\r\n    \"categories\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test 10\",\r\n    \"content\": \"<h6>Test 10 Test Test</h6>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/posts/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePost",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/posts/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPost",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/posts/post/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"post",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPostBySlug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/posts/slug/test",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"slug",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserPosts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/user/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPostList",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "<YOUR_ACCESS_TOKEN_HERE>",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GetCategoriesList",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/categories",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "<YOUR_ACCESS_TOKEN_HERE>",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "AddComment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"Test 150\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/posts/3/comment",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"3",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"Test 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost/api/comments/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost/api/posts/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "<YOUR_ACCESS_TOKEN_HERE>",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
