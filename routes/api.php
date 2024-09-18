@@ -21,14 +21,20 @@ Route::controller(\App\Http\Controllers\Api\AuthenticationController::class)->gr
 
 Route::controller(\App\Http\Controllers\Api\PostController::class)->middleware('auth:sanctum')->group(function (){
     Route::post('/posts', 'store');
-    Route::patch('/posts/{post}', 'update');
+    Route::put('/posts/{post}', 'update');
     Route::get('/posts', 'index');
-    Route::get('/post/{post}', 'show');
+    Route::get('/posts/slug/{slug}', 'getBySlug');
+    Route::get('/user/posts', 'userPosts');
+    Route::get('/posts/id/{post}', 'show');
     Route::delete('/posts/{post}', 'destroy');
 });
 
 Route::controller(\App\Http\Controllers\Api\CommentController::class)->middleware('auth:sanctum')->group(function (){
     Route::post('/posts/{post}/comment', 'store');
-    Route::patch('/comments/{comment}', 'update');
+    Route::put('/comments/{comment}', 'update');
     Route::delete('/comments/{comment}', 'destroy');
+});
+
+Route::controller(\App\Http\Controllers\Api\CategoryController::class)->middleware('auth:sanctum')->group(function (){
+    Route::get('/categories', 'index');
 });

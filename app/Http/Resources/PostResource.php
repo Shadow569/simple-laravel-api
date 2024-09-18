@@ -11,6 +11,7 @@ class PostResource extends \Illuminate\Http\Resources\Json\JsonResource
         /** @var \App\Models\User|null $postAuthor */
         $postAuthor = $this->whenLoaded('user');
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,

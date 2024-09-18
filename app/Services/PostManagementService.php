@@ -25,11 +25,11 @@ class PostManagementService
 
     /**
      * @param array $postData
-     * @param array $tags
-     * @param array $categories
+     * @param array|null $tags
+     * @param array|null $categories
      * @return \App\Models\Post
      */
-    public function createOrUpdatePost(array $postData, array $tags = [], array $categories = []): Post
+    public function createOrUpdatePost(array $postData, ?array $tags = null, ?array $categories = null): Post
     {
         if(array_key_exists('id', $postData)){
             $post = $this->postRepository->get($postData['id']);
@@ -41,7 +41,15 @@ class PostManagementService
         }
 
         $post = $this->postRepository->save($post);
-        $post = $this->postRepository->attachCategories($post, $categories);
-        return $this->postRepository->attachTags($post, $tags);
+
+        if(is_array($categories)){
+            $post = $this->postRepository->attachCategories($post, $categories);
+        }
+
+        if(is_array($tags)){
+            $post = $this->postRepository->attachTags($post, $tags);
+        }
+
+        return $post;
     }
 }

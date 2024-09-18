@@ -47,7 +47,7 @@ class CommentController extends \App\Http\Controllers\Controller
         try{
             $this->objectAuthorizationService->canCreate();
             $comment = $this->commentManagementService->createOrUpdateComment(
-                $request->validated(['comment']),
+                ['comment' => $request->validated('comment')],
                 $post,
             );
 
@@ -55,7 +55,7 @@ class CommentController extends \App\Http\Controllers\Controller
                 return response()->json(['message' => 'unable to create comment'], 500);
             }
 
-            return CommentResource::make($comment);
+            return CommentResource::make($comment->load('user'));
         } catch (AuthorizationException $e){
             return response()->json(['message' => $e->getMessage()], 403);
         }
@@ -66,8 +66,10 @@ class CommentController extends \App\Http\Controllers\Controller
         try{
             $this->objectAuthorizationService->canEdit($comment);
 
-            $commentData = $request->validated(['comment']);
-            $commentData['id'] = $comment->id;
+            $commentData = [
+                'comment' => $request->validated('comment'),
+                'id' => $comment->id
+            ];
 
             $comment = $this->commentManagementService->createOrUpdateComment(
                 $commentData,
@@ -78,7 +80,7 @@ class CommentController extends \App\Http\Controllers\Controller
                 return response()->json(['message' => 'unable to update comment'], 500);
             }
 
-            return CommentResource::make($comment);
+            return CommentResource::make($comment->load('user'));
         } catch (AuthorizationException $e){
             return response()->json(['message' => $e->getMessage()], 403);
         }
