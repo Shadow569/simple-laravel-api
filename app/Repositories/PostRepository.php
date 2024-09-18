@@ -52,10 +52,9 @@ class PostRepository implements Interfaces\PostRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save(Post $post): Post
+    public function save(Post $post): ?Post
     {
-        $post->save();
-        return $post;
+        return $post->save() ? $post : null;
     }
 
     /**

@@ -48,10 +48,9 @@ class TagRepository implements Interfaces\TagRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save(Tag $tag): Tag
+    public function save(Tag $tag): ?Tag
     {
-        $tag->save();
-        return $tag;
+        return $tag->save() ? $tag : null;
     }
 
     /**

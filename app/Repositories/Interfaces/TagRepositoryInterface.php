@@ -28,9 +28,9 @@ interface TagRepositoryInterface
 
     /**
      * @param \App\Models\Tag $tag
-     * @return \App\Models\Tag
+     * @return \App\Models\Tag|null
      */
-    public function save(Tag $tag): Tag;
+    public function save(Tag $tag): ?Tag;
 
     /**
      * @param \App\Models\Tag $tag

@@ -28,9 +28,9 @@ interface PostRepositoryInterface
 
     /**
      * @param \App\Models\Post $post
-     * @return \App\Models\Post
+     * @return \App\Models\Post|null
      */
-    public function save(Post $post): Post;
+    public function save(Post $post): ?Post;
 
     /**
      * @param \App\Models\Post $post

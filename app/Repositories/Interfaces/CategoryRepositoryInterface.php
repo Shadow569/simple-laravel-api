@@ -28,9 +28,9 @@ interface CategoryRepositoryInterface
 
     /**
      * @param \App\Models\Category $category
-     * @return \App\Models\Category
+     * @return \App\Models\Category|null
      */
-    public function save(Category $category): Category;
+    public function save(Category $category): ?Category;
 
     /**
      * @param \App\Models\Category $category

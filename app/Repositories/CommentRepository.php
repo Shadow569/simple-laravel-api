@@ -41,10 +41,9 @@ class CommentRepository implements Interfaces\CommentRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save(Comment $comment): Comment
+    public function save(Comment $comment): ?Comment
     {
-        $comment->save();
-        return $comment;
+        return $comment->save() ? $comment : null;
     }
 
     /**

@@ -24,9 +24,9 @@ interface CommentRepositoryInterface
 
     /**
      * @param \App\Models\Comment $comment
-     * @return \App\Models\Comment
+     * @return \App\Models\Comment|null
      */
-    public function save(Comment $comment): Comment;
+    public function save(Comment $comment): ?Comment;
 
     /**
      * @param \App\Models\Post $post

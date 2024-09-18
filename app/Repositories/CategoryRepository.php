@@ -48,10 +48,9 @@ class CategoryRepository implements Interfaces\CategoryRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save(Category $category): Category
+    public function save(Category $category): ?Category
     {
-        $category->save();
-        return $category;
+        return $category->save() ? $category : null;
     }
 
     /**
