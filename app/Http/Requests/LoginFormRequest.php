@@ -8,8 +8,7 @@ class LoginFormRequest extends \Illuminate\Foundation\Http\FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required'
+            'password' => 'required'
         ];
     }
 
@@ -18,8 +17,7 @@ class LoginFormRequest extends \Illuminate\Foundation\Http\FormRequest
         return [
             'email.required' => 'email is required',
             'email.email' => 'email is not valid',
-            'password.required' => 'password is required',
-            'device_name' => 'device_name is required'
+            'password.required' => 'password is required'
         ];
     }
 }

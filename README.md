@@ -1,64 +1,48 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Blog API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a very simple API for blogs that allows for user authentication, posting
+and commenting on individual posts.
 
-## About Laravel
+This is implemented using Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Endpoints
+`/api/users/tokens`(`POST`) is used to login and receive an access token to be used
+for posting and commenting on the blog posts. It takes the following parameters:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+`email` is the email registered for the account\
+`password` is the password to access the account
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`/api/users/register`(`POST`) is used to register a new account. It receives the following
+parameters:
 
-## Learning Laravel
+`email` is the email to be registered for the account and must be unique\
+`password` is the login password, it must be at least 8 characters long\
+`name` is the name you prefer to use and will be displayed as "author" under
+posts and comments.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+>The following endpoints can be accessed only with a valid access token, which should be placed 
+>on the Authorization request headers like this: `Authorization: Bearer <access token>`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`/api/posts/post/{post_id}`(`GET`) can be used to display a single post by post id 
+with all the related comments, categories and tags
 
-## Laravel Sponsors
+`/api/posts/slug/{slug}`(`GET`) can be used to display a single post by slug with
+all the related comments, categories and tags
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+`/api/users/posts`(`GET`) can be used to display all posts made by the logged in
+user.
 
-### Premium Partners
+`/api/posts`(`GET`) can be used to retrieve all posts, it has a simple filtering
+mechanism that can be used to find a specific post based on a specific parameter:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+`filters` are the simple filters that can be in the format of:\
+>[\
+> &nbsp;&nbsp;&nbsp;&nbsp;{field1: value1},\
+> &nbsp;&nbsp;&nbsp;&nbsp;{field3: value3}\
+> ]
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`order` can be used to modify the sorting of the results:
+> {\
+> &nbsp;&nbsp;&nbsp;&nbsp;direction: "asc|desc",\  
+> &nbsp;&nbsp;&nbsp;&nbsp;field: "your_desired_field"\
+> }

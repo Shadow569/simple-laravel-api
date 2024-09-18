@@ -38,6 +38,6 @@ class AuthenticationController extends \App\Http\Controllers\Controller
             ]);
         }
 
-        return response()->json(["token" => $user->createToken($request->validated('device_name'))->plainTextToken]);
+        return response()->json(["token" => $user->createToken($request->ip())->plainTextToken]);
     }
 }
