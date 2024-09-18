@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Services\ObjectAuthorizationService;
 use App\Services\PostManagementService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class PostController extends \App\Http\Controllers\Controller
@@ -44,7 +45,10 @@ class PostController extends \App\Http\Controllers\Controller
 
     public function index(Request $request)
     {
-        //TODO: implement retrieval of posts
+        $filters = $request->input('filters', []);
+        $order = $request->input('order', []);
+
+        return PostResource::collection($this->postRepository->getList($filters, $order));
     }
 
     public function show(Post $post)
@@ -54,16 +58,57 @@ class PostController extends \App\Http\Controllers\Controller
 
     public function store(BlogPostCreationRequest $request)
     {
-        //TODO: implement creation of post
+        try{
+            $this->objectAuthorizationService->canCreate();
+            $post = $this->postManagementService->createOrUpdatePost(
+                $request->validated(['title', 'slug', 'content']),
+                $request->validated('tags', []),
+                $request->validated('categories', [])
+            );
+
+            if(empty($post)){
+                return response()->json(['message' => 'unable to create post'], 500);
+            }
+
+            return PostResource::make($post);
+        } catch (AuthorizationException $e){
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     public function update(Post $post, BlogPostUpdateRequest $request)
     {
-        //TODO: implement update of post
+        try{
+            $this->objectAuthorizationService->canEdit($post);
+            $blogPostData = $request->validated(['title', 'slug', 'content']);
+            $blogPostData['id'] = $post->id;
+            $post = $this->postManagementService->createOrUpdatePost(
+                $request->validated(['title', 'slug', 'content']),
+                $request->validated('tags', []),
+                $request->validated('categories', [])
+            );
+
+            if(empty($post)){
+                return response()->json(['message' => 'unable to update post'], 500);
+            }
+
+            return PostResource::make($post);
+        } catch (AuthorizationException $e){
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     public function destroy(Post $post)
     {
-        //TODO: implement deletion of post
+        try{
+            $this->objectAuthorizationService->canEdit($post);
+            if($this->postRepository->delete($post)){
+                return response()->json(["message" => "successful deletion"]);
+            }
+
+            return response()->json(["message" => "unable to delete post"], 500);
+        } catch (AuthorizationException $e){
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 }
